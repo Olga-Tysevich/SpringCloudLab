@@ -1,0 +1,54 @@
+services:
+
+  spring-server:
+    build:
+      context: ./SpringServer
+    ports:
+      - "127.0.0.1:8001:8001"
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8001/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - internal
+
+  spring-client:
+    restart: always
+    build:
+      context: ./SpringClient
+    ports:
+      - "127.0.0.1:8002:8002"
+    depends_on:
+      spring-server:
+        condition: service_healthy
+    networks:
+      - internal
+    environment:
+      SPRING_CLOUD_CONFIG_URI: http://spring-server:8001/
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "127.0.0.1:9090:9090"
+    command: "--config.file=/etc/prometheus/prometheus.yml"
+    networks:
+      - internal
+
+  grafana:
+    image: grafana/grafana:9.5.2
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yml
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+
+
+

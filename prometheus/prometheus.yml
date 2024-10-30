@@ -1,0 +1,26 @@
+#  This configuration file will control how the Prometheus server runs.
+#    - scrape interval / timeout controls - how often Prometheus will scrape metrics from your Spring Boot applications.
+#    - scrape_configs - define details specific to different applications.
+#    - job_name - is an arbitrary/descriptive value.
+#    - metrics_path - defines the path where metrics in prometheus format can be found. Previously, we found them at server:port/actuator/prometheus
+#    - static_configs - allows us to list the different applications we want Prometheus to monitor.
+#    - targets - lists the different URLs. Note that this is an array, allowing a single application to have multiple instances running.
+#    The host.docker.internal targets are used instead of localhost.
+#       This is only necessary because we will be running Prometheus in a Docker container,
+#       and its localhost definition refers to the container, not the underlying machine.
+#       (If you install and run Prometheus without Docker, you should use localhost.)
+#    Optionally, labels.application provides a display name for this application.
+#       In our case, we configured our monitored applications to create an "application" tag for each metric, so we don't need to identify each application here.
+
+global:
+  scrape_interval: 20s
+  scrape_timeout: 10s
+  evaluation_interval: 1m
+
+scrape_configs:
+  - job_name: 'spring-applications'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 3s # This can be adjusted based on our needs
+    static_configs:
+      - targets: [ 'host.docker.internal:8001' ]
+      - targets: [ 'host.docker.internal:8002' ]
