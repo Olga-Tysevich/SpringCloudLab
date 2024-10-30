@@ -9,6 +9,8 @@
 	<modules>
 		<module>SpringServer</module>
 		<module>SpringClient</module>
+		<module>EurekaServer</module>
+		<module>EurekaSubject</module>
 	</modules>
 </project>
 	

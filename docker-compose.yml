@@ -27,6 +27,15 @@ services:
     environment:
       SPRING_CLOUD_CONFIG_URI: http://spring-server:8001/
 
+  eureka-server:
+    restart: always
+    build:
+      context: ./EurekaServer
+    ports:
+      - "127.0.0.1:8010:8010"
+    networks:
+      - internal
+
   prometheus:
     image: prom/prometheus
     volumes:
