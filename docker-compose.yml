@@ -44,6 +44,7 @@ services:
       - "127.0.0.1:0:8080"
     depends_on:
       - eureka-server
+      - spring-server
     networks:
       - internal
 
@@ -55,6 +56,7 @@ services:
       - "127.0.0.1:0:8080"
     depends_on:
       - eureka-server
+      - spring-server
     networks:
       - internal
 
@@ -66,6 +68,7 @@ services:
       - "127.0.0.1:0:8080"
     depends_on:
       - eureka-server
+      - spring-server
     networks:
       - internal
 
@@ -77,6 +80,7 @@ services:
       - "127.0.0.1:0:8080"
     depends_on:
       - eureka-server
+      - spring-server
     networks:
       - internal
 
@@ -88,6 +92,7 @@ services:
       - "127.0.0.1:0:8080"
     depends_on:
       - eureka-server
+      - spring-server
     networks:
       - internal
 
@@ -99,6 +104,12 @@ services:
       - "127.0.0.1:8020:8020"
     depends_on:
       - eureka-server
+      - eureka-adjective
+      - eureka-article
+      - eureka-noun
+      - eureka-subject
+      - eureka-verb
+      - spring-server
     networks:
       - internal
 
