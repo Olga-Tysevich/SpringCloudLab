@@ -4,38 +4,4 @@ eureka:
       defaultZone:
         http://eureka-server:8761/eureka/
 
-spring:
-  profiles:
-    active: adjective
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: adjective
 words: [reasonable, leaky, suspicious, ordinary, unlikely]
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: verb
-words: [ran, knew, had, saw, bought]
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: article
-words: [a, the]
-
----
-
-spring:
-  config:
-    activate:
-      on-profile: noun
-words: [boat, book, vote, seat, backpack, partition, groundhog]
