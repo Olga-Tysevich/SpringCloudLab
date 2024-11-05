@@ -1,4 +1,4 @@
-package com.eureka.eurekasubject.controllers;
+package com.eureka.eurekaadjective.controllers;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -32,7 +32,73 @@ services:
     build:
       context: ./EurekaServer
     ports:
-      - "127.0.0.1:8010:8010"
+      - "127.0.0.1:8761:8761"
+    networks:
+      - internal
+
+  eureka-adjective:
+    restart: always
+    build:
+      context: ./EurekaAdjective
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - internal
+
+  eureka-article:
+    restart: always
+    build:
+      context: ./EurekaArticle
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - internal
+
+  eureka-noun:
+    restart: always
+    build:
+      context: ./EurekaNoun
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - internal
+
+  eureka-subject:
+    restart: always
+    build:
+      context: ./EurekaSubject
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - internal
+
+  eureka-verb:
+    restart: always
+    build:
+      context: ./EurekaVerb
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+    networks:
+      - internal
+
+  eureka-sentence:
+    restart: always
+    build:
+      context: ./EurekaSentence
+    ports:
+      - "127.0.0.1:8020:8020"
+    depends_on:
+      - eureka-server
     networks:
       - internal
 
