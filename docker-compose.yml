@@ -32,9 +32,42 @@ services:
     build:
       context: ./EurekaServer
     ports:
-      - "127.0.0.1:8761:8761"
+      - "127.0.0.1:8010:8761"
     networks:
       - internal
+
+  eureka-server-primary:
+    restart: always
+    build:
+      context: ./EurekaServer
+    ports:
+      - "127.0.0.1:8011:8761"
+    networks:
+      - internal
+    environment:
+      - SPRING_PROFILES_ACTIVE=primary
+
+  eureka-server-secondary:
+    restart: always
+    build:
+      context: ./EurekaServer
+    ports:
+      - "127.0.0.1:8012:8761"
+    networks:
+      - internal
+    environment:
+      - SPRING_PROFILES_ACTIVE=secondary
+
+  eureka-server-tertiary:
+    restart: always
+    build:
+      context: ./EurekaServer
+    ports:
+      - "127.0.0.1:8013:8761"
+    networks:
+      - internal
+    environment:
+      - SPRING_PROFILES_ACTIVE=tertiary
 
   eureka-adjective:
     restart: always
