@@ -1,0 +1,58 @@
+spring:
+  config:
+    import:
+      optional:configserver:http://spring-server:8001/
+
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+management:
+  endpoints.web.exposure.include: health,info,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+
+---
+spring:
+  config.activate.on-profile: sentence
+  application:
+    name: eureka-sentence
+server:
+  port: 8020
+words: NotApplicable
+
+---
+spring:
+  config.activate.on-profile: subject
+  application:
+    name: eureka-subject
+words: I,You,He,She,It
+
+---
+spring:
+  config.activate.on-profile: verb
+  application:
+    name: eureka-verb
+words: ran,knew,had,saw,bought
+
+---
+spring:
+  config.activate.on-profile: article
+  application:
+    name: eureka-article
+words: a,the
+
+---
+spring:
+  config.activate.on-profile: adjective
+  application:
+    name: eureka-adjective
+words: reasonable,leaky,suspicious,ordinary,unlikely
+
+---
+spring:
+  config.activate.on-profile: noun
+  application:
+    name: eureka-noun
+words: boat,book,vote,seat,backpack,partition,groundhog

@@ -72,7 +72,7 @@ services:
   eureka-adjective:
     restart: always
     build:
-      context: ./EurekaAdjective
+      context: ./EurekaSentence
     ports:
       - "127.0.0.1:0:8080"
     depends_on:
@@ -80,11 +80,13 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: adjective
 
   eureka-article:
     restart: always
     build:
-      context: ./EurekaArticle
+      context: ./EurekaSentence
     ports:
       - "127.0.0.1:0:8080"
     depends_on:
@@ -92,11 +94,13 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: article
 
   eureka-noun:
     restart: always
     build:
-      context: ./EurekaNoun
+      context: ./EurekaSentence
     ports:
       - "127.0.0.1:0:8080"
     depends_on:
@@ -104,11 +108,13 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: noun
 
   eureka-subject:
     restart: always
     build:
-      context: ./EurekaSubject
+      context: ./EurekaSentence
     ports:
       - "127.0.0.1:0:8080"
     depends_on:
@@ -116,11 +122,13 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: subject
 
   eureka-verb:
     restart: always
     build:
-      context: ./EurekaVerb
+      context: ./EurekaSentence
     ports:
       - "127.0.0.1:0:8080"
     depends_on:
@@ -128,6 +136,8 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: verb
 
   eureka-sentence:
     restart: always
@@ -145,6 +155,8 @@ services:
       - spring-server
     networks:
       - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: sentence
 
   prometheus:
     image: prom/prometheus
