@@ -24,3 +24,32 @@ scrape_configs:
     static_configs:
       - targets: [ 'host.docker.internal:8001' ]
       - targets: [ 'host.docker.internal:8002' ]
+
+  #  The services job tells Prometheus to dynamically register clients found in Eureka. The "relabel" entry tells Prometheus to scrape
+  #  the actuator-provided endpoint rather than /metrics or some other path:
+  - job_name: 'services'
+    eureka_sd_configs:
+      - server: http://host.docker.internal:8010/eureka
+    relabel_configs:
+      - target_label: __metrics_path__
+        replacement: /actuator/prometheus
+
+  #  To be complete, we should monitor the Prometheus, Grafana, and Eureka services themselves (Yes, Prometheus can scrape metrics from itself).
+  #  Unfortunately, these cannot be easily implemented with service discovery, so we will hard-code these URLs
+  #  Since our Eureka application is actually a Spring Boot application, prometheus metrics are available at /actuator/prometheus
+  #  The labels.application will clearly delineate the Prometheus and Grafana metrics on the Grafana dashboard. The Spring Boot-based applications
+  #  do not require this as we configured them to emit an "application" tag on each metric. Ultimately these will display at the top of the Grafana dashboard.
+  - job_name: 'eureka-server'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: [ 'host.docker.internal:8761' ]
+
+  - job_name: 'prometheus-and-grafana'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: [ 'host.docker.internal:9090' ]
+        labels:
+          application: 'Prometheus'
+      - targets: [ 'host.docker.internal:3000' ]
+        labels:
+          application: 'Grafana'

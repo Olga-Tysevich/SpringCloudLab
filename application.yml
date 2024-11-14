@@ -2,7 +2,8 @@ eureka:
   client:
     serviceUrl:
       defaultZone:
-        http://eureka-server:8761/eureka/,http://eureka-server-primary:8011/eureka/,http://eureka-server-secondary:8012/eureka/,http://eureka-server-tertiary:8013/eureka/
+        http://eureka-server:8761/eureka/
+#        http://eureka-server-primary:8011/eureka/,http://eureka-server-secondary:8012/eureka/,http://eureka-server-tertiary:8013/eureka/
 
 ---
 spring:
