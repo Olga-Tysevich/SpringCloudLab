@@ -32,7 +32,7 @@ services:
     build:
       context: ./EurekaServer
     ports:
-      - "127.0.0.1:8010:8761"
+      - "127.0.0.1:8761:8761"
     networks:
       - internal
 
