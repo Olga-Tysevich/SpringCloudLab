@@ -21,22 +21,38 @@ public class SentenceController {
 
     @GetMapping("/get")
     public String getSentence() {
+        return
+                "<h3>Some Sentences</h3><br/>" +
+                        buildSentence() + "<br/><br/>" +
+                        buildSentence() + "<br/><br/>" +
+                        buildSentence() + "<br/><br/>" +
+                        buildSentence() + "<br/><br/>" +
+                        buildSentence() + "<br/><br/>"
+                ;
+    }
+
+    public String buildSentence() {
         return String.format("%s %s %s %s %s.",
                 getWord("EUREKA-SUBJECT"),
                 getWord("EUREKA-VERB"),
                 getWord("EUREKA-ARTICLE"),
                 getWord("EUREKA-ADJECTIVE"),
-                getWord("EUREKA-NOUN") );
+                getWord("EUREKA-NOUN"));
     }
 
+    /*
+     * When using the `@LoadBalanced` annotation, RestTemplate assumes that you passed a service name, not a URI.
+     * When you call `restTemplate.getForObject(uri, String.class);`, `uri` in this case must be the service name, not the full URI.
+     * */
     public String getWord(String service) {
-        List<ServiceInstance> list = client.getInstances(service);
-        if (list != null && !list.isEmpty()) {
-            URI uri = list.get(0).getUri();
-            if (uri !=null ) {
-                return restTemplate.getForObject(uri, String.class);
-            }
-        }
-        return null;
+//        List<ServiceInstance> list = client.getInstances(service);
+//        if (list != null && !list.isEmpty()) {
+//            URI uri = list.get(0).getUri();
+//            if (uri !=null ) {
+//                return restTemplate.getForObject(uri, String.class);
+//            }
+//        }
+//        return null;
+        return restTemplate.getForObject("http://" + service, String.class);
     }
 }

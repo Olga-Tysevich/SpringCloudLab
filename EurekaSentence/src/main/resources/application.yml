@@ -3,6 +3,12 @@ spring:
     import:
       optional:configserver:http://spring-server:8001/
 
+# Allow Eureka to recognize two apps of the same type on the same host as separate instances:
+eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+
 server:
   port: ${PORT:${SERVER_PORT:0}}
 
@@ -56,3 +62,10 @@ spring:
   application:
     name: eureka-noun
 words: boat,book,vote,seat,backpack,partition,groundhog
+
+---
+spring:
+  config.activate.on-profile: best-noun
+  application:
+    name: eureka-noun
+words: '!!!___THE_BEST_NOUN_IN_THE_WORLD___!!!!'

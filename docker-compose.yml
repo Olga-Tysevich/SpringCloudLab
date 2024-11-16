@@ -111,6 +111,20 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: noun
 
+  eureka-best-noun:
+    restart: always
+    build:
+      context: ./EurekaSentence
+    ports:
+      - "127.0.0.1:0:8080"
+    depends_on:
+      - eureka-server
+      - spring-server
+    networks:
+      - internal
+    environment:
+      SPRING_PROFILES_ACTIVE: best-noun
+
   eureka-subject:
     restart: always
     build:
