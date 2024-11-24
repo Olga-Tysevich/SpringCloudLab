@@ -19,9 +19,9 @@ services:
       context: ./SpringClient
     ports:
       - "127.0.0.1:8002:8002"
-    depends_on:
-      spring-server:
-        condition: service_healthy
+#    depends_on:
+#      spring-server:
+#        condition: service_healthy
     networks:
       - internal
     environment:

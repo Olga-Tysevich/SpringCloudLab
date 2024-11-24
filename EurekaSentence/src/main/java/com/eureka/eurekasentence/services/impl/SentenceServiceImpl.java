@@ -1,35 +1,24 @@
 package com.eureka.eurekasentence.services.impl;
 
-import com.eureka.eurekasentence.dao.WordDAO;
-import com.eureka.eurekasentence.feign.NounClient;
 import com.eureka.eurekasentence.services.SentenceService;
+import com.eureka.eurekasentence.services.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
 public class SentenceServiceImpl implements SentenceService {
-    @Qualifier("eureka-adjective")
     @Autowired
-    private WordDAO adjectiveDao;
-    @Qualifier("eureka-article")
-    @Autowired
-    private WordDAO articleDao;
-    @Autowired
-    private NounClient nounClient;
-    @Qualifier("eureka-subject")
-    @Autowired
-    private WordDAO subjectDao;
-    @Qualifier("eureka-verb")
-    @Autowired
-    private WordDAO verbDao;
+    WordService wordService;
 
     public String buildSentence() {
-        return String.format("%s %s %s %s %s.",
-                adjectiveDao.getWord().getWord(),
-                articleDao.getWord().getWord(),
-                nounClient.getWord().getWord(),
-                subjectDao.getWord().getWord(),
-                verbDao.getWord().getWord());
+        long start = System.currentTimeMillis();
+        String output = String.format("%s %s %s %s %s.",
+                wordService.getSubject().getWord(),
+                wordService.getVerb().getWord(),
+                wordService.getArticle().getWord(),
+                wordService.getAdjective().getWord(),
+                wordService.getNoun().getWord());
+        long end = System.currentTimeMillis();
+        return output + "Elapsed time (ms): " + (end - start);
     }
 }
