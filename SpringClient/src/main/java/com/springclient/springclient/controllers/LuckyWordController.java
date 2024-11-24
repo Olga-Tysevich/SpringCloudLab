@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class LuckyWordController {
     @Autowired
     private SpringClientMetrics clientMetrics;
-    @Value("${lucky-word:unknown}")
-    private String luckyWord;
+    String luckyWord;
+    String preamble;
 
     @GetMapping("/lucky-word")
     public String showLuckyWord(){
         clientMetrics.incrementLuckyWordRequestCounter();
-        return "The lucky word is: " + luckyWord;
+        return preamble + ": " + luckyWord;
     }
 }
